@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const element = document.querySelector("#college");
+  const element = document.querySelector("#department");
 
   const choices = new Choices(element, {
     searchEnabled: true,
@@ -7,26 +7,47 @@ document.addEventListener("DOMContentLoaded", function () {
     shouldSort: true,
   });
 
+  // Save all options including OTHER
+  const originalChoices = Array.from(element.options).map((option) => ({
+    value: option.value,
+    label: option.text,
+  }));
+
+  // Separate OTHER from the real options
+  const otherChoice = originalChoices.find((o) => o.value === "OTHER");
+  const normalChoices = originalChoices.filter((o) => o.value !== "OTHER");
+
+  element.addEventListener("showDropdown", function () {
+    const selectedValue = choices.getValue(true); // gets current selected value
+
+    const availableChoices = originalChoices.filter(
+      (o) => o.value !== selectedValue,
+    );
+
+    // choices.setChoices(availableChoices, "value", "label", true);
+  });
   element.addEventListener("search", function (e) {
     const searchValue = e.detail.value.toLowerCase();
 
-    const options = Array.from(element.options);
+    if (searchValue === "") {
+      choices.setChoices(originalChoices, "value", "label", true);
+      return;
+    }
 
-    const matchFound = options.some((option) =>
-      option.text.toLowerCase().includes(searchValue),
+    const filtered = normalChoices.filter((option) =>
+      option.label.toLowerCase().includes(searchValue),
     );
 
-    if (!matchFound && searchValue !== "") {
-      choices.setChoices(
-        [{ value: "OTHER", label: "OTHER", selected: false }],
-        "value",
-        "label",
-        true,
-      );
+    if (filtered.length === 0) {
+      // No match — show the OTHER option from your select tag
+      choices.setChoices([otherChoice], "value", "label", true);
+    } else {
+      // Show matched options only
+      choices.setChoices(filtered, "value", "label", true);
     }
   });
 });
- 
+
 document.addEventListener("DOMContentLoaded", function () {
   const element = document.querySelector("#semester");
 
@@ -36,29 +57,49 @@ document.addEventListener("DOMContentLoaded", function () {
     shouldSort: true,
   });
 
+  // Save all options including OTHER
+  const originalChoices = Array.from(element.options).map((option) => ({
+    value: option.value,
+    label: option.text,
+  }));
+
+  // Separate OTHER from the real options
+  const otherChoice = originalChoices.find((o) => o.value === "OTHER");
+  const normalChoices = originalChoices.filter((o) => o.value !== "OTHER");
+
+  element.addEventListener("showDropdown", function () {
+    const selectedValue = choices.getValue(true); // gets current selected value
+
+    const availableChoices = originalChoices.filter(
+      (o) => o.value !== selectedValue,
+    );
+
+    // choices.setChoices(availableChoices, "value", "label", true);
+  });
   element.addEventListener("search", function (e) {
     const searchValue = e.detail.value.toLowerCase();
 
-    const options = Array.from(element.options);
+    if (searchValue === "") {
+      choices.setChoices(originalChoices, "value", "label", true);
+      return;
+    }
 
-    const matchFound = options.some((option) =>
-      option.text.toLowerCase().includes(searchValue),
+    const filtered = normalChoices.filter((option) =>
+      option.label.toLowerCase().includes(searchValue),
     );
 
-    if (!matchFound && searchValue !== "") {
-      choices.setChoices(
-        [{ value: "OTHER", label: "OTHER", selected: false }],
-        "value",
-        "label",
-        true,
-      );
+    if (filtered.length === 0) {
+      // No match — show the OTHER option from your select tag
+      choices.setChoices([otherChoice], "value", "label", true);
+    } else {
+      // Show matched options only
+      choices.setChoices(filtered, "value", "label", true);
     }
   });
 });
- 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const element = document.querySelector("#department");
+  const element = document.querySelector("#college");
 
   const choices = new Choices(element, {
     searchEnabled: true,
@@ -66,25 +107,48 @@ document.addEventListener("DOMContentLoaded", function () {
     shouldSort: true,
   });
 
+  // Save all options including OTHER
+  const originalChoices = Array.from(element.options).map((option) => ({
+    value: option.value,
+    label: option.text,
+  }));
+
+  // Separate OTHER from the real options
+  const otherChoice = originalChoices.find((o) => o.value === "OTHER");
+  const normalChoices = originalChoices.filter((o) => o.value !== "OTHER");
+
+  element.addEventListener("showDropdown", function () {
+    const selectedValue = choices.getValue(true); // gets current selected value
+
+    const availableChoices = originalChoices.filter(
+      (o) => o.value !== selectedValue,
+    );
+
+    // choices.setChoices(availableChoices, "value", "label", true);
+  });
   element.addEventListener("search", function (e) {
     const searchValue = e.detail.value.toLowerCase();
 
-    const options = Array.from(element.options);
+    if (searchValue === "") {
+      choices.setChoices(originalChoices, "value", "label", true);
+      return;
+    }
 
-    const matchFound = options.some((option) =>
-      option.text.toLowerCase().includes(searchValue),
+    const filtered = normalChoices.filter((option) =>
+      option.label.toLowerCase().includes(searchValue),
     );
 
-    if (!matchFound && searchValue !== "") {
-      choices.setChoices(
-        [{ value: "OTHER", label: "OTHER", selected: false }],
-        "value",
-        "label",
-        true,
-      );
+    if (filtered.length === 0) {
+      // No match — show the OTHER option from your select tag
+      choices.setChoices([otherChoice], "value", "label", true);
+    } else {
+      // Show matched options only
+      choices.setChoices(filtered, "value", "label", true);
     }
   });
 });
+
+
 function scrollToForm() {
   document.getElementById("topForm").scrollIntoView({
     behavior: "smooth",
@@ -104,7 +168,6 @@ function scrollToForm() {
 // rightBtn.onclick = () => card.classList.add("flipped");
 // leftBtn.onclick = () => card.classList.remove("flipped");
 
-
 // const videos = document.querySelectorAll(".flip-card video");
 
 // videos.forEach((video) => {
@@ -116,14 +179,13 @@ function scrollToForm() {
 //   });
 // });
 
+// Flip only with buttons
+// rightBtn.onclick = () => card.classList.add("flipped");
+// leftBtn.onclick = () => card.classList.remove("flipped");
 
 const card = document.getElementById("videoFlip");
 const leftBtn = document.getElementById("flipLeft");
 const rightBtn = document.getElementById("flipRight");
-
-// Flip only with buttons
-// rightBtn.onclick = () => card.classList.add("flipped");
-// leftBtn.onclick = () => card.classList.remove("flipped");
 
 rightBtn.onclick = () => {
   card.classList.toggle("flipped");
@@ -133,24 +195,30 @@ leftBtn.onclick = () => {
   card.classList.toggle("flipped");
 };
 
-// Video open logic
 const videos = document.querySelectorAll(".flip-card video");
 
 videos.forEach((video) => {
   video.addEventListener("click", function (e) {
     e.stopPropagation();
 
+    // turn sound on
+    this.muted = false;
+
+    // play video
+    this.play();
+
+    // FULLSCREEN (cross browser)
     if (this.requestFullscreen) {
       this.requestFullscreen();
+    } else if (this.webkitEnterFullscreen) {
+      // iPhone Safari
+      this.webkitEnterFullscreen();
     } else if (this.webkitRequestFullscreen) {
-      // Safari
+      // Safari desktop
       this.webkitRequestFullscreen();
     }
-
-    this.play();
   });
 });
-
 // const video = document.getElementById("videoFlip");
 
 // video.addEventListener("click", (e) => {
@@ -162,7 +230,6 @@ videos.forEach((video) => {
 //   video.requestFullscreen();
 //   video.play();
 // });
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const reviews = [
@@ -181,3 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setInterval(rotateReviews, 3000);
 });
+
+
+document.getElementById("source").value = window.location.href;

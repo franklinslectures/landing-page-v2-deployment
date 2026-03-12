@@ -12,6 +12,8 @@ document
     const semester = document.getElementById("semester").value;
     const department = document.getElementById("department").value;
     const college = document.getElementById("college").value.trim();
+    const source = window.location.href;
+
 
     if (!fullname || !mobile) {
       alert("Please fill all fields");
@@ -28,6 +30,7 @@ document
           semester,
           department,
           college,
+          source,
         },
       ]);
 
