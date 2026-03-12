@@ -198,26 +198,34 @@ leftBtn.onclick = () => {
 const videos = document.querySelectorAll(".flip-card video");
 
 videos.forEach((video) => {
+
   video.addEventListener("click", function (e) {
     e.stopPropagation();
 
     // turn sound on
-    this.muted = false;
+    video.muted = false;
 
     // play video
-    this.play();
+    video.play();
 
-    // FULLSCREEN (cross browser)
-    if (this.requestFullscreen) {
-      this.requestFullscreen();
-    } else if (this.webkitEnterFullscreen) {
-      // iPhone Safari
-      this.webkitEnterFullscreen();
-    } else if (this.webkitRequestFullscreen) {
-      // Safari desktop
-      this.webkitRequestFullscreen();
+    // open fullscreen
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.webkitEnterFullscreen) {
+      video.webkitEnterFullscreen(); // iPhone Safari
+    } else if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen(); // Safari desktop
     }
   });
+
+  // when fullscreen exits
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+      video.muted = true;
+      video.play();
+    }
+  });
+
 });
 // const video = document.getElementById("videoFlip");
 

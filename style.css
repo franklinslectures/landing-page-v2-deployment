@@ -88,8 +88,8 @@ header {
 
 .two {
   background-color: #fff;
-  width: 95%;
-  max-width: 315px;
+  width: 96%;
+  max-width: 330px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -129,18 +129,18 @@ label {
 }
 
 input {
-  width: min(265px, 80vw);
+  width: min(280px, 80vw);
   line-height: normal;
   padding: 4px 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-left: 10px;
-  height: 32px;
+  height: 36px;
   box-sizing: border-box;
 }
 
 .form-bottom {
-  margin-left: 8px;
+  margin-left: 1px;
 }
 
 .form-bottom p {
@@ -179,14 +179,14 @@ input:hover {
 .choices__inner {
   display: inline-block;
   vertical-align: top;
-  width: min(265px, 80vw);
+  width: min(280px, 80vw);
   background-color: rgba(240, 240, 240, 1);
   padding: 0px 6px 3.75px;
   border: 1px solid #ccc;
   border-radius: 9px;
   font-size: 16px;
   min-height: 20px;
-  height: 32px;
+  height: 36px;
   overflow: hidden;
   color: #000;
   z-index: 9999 !important;
@@ -908,6 +908,8 @@ select:valid {
   justify-content: center;
   display: flex;
   transform: translateZ(0);
+  object-fit: cover;
+  aspect-ratio: 9/16 !important;
 }
 
 .flip-card {
@@ -938,6 +940,7 @@ select:valid {
   background: #000;
   border-radius: 12px;
   overflow: hidden;
+  aspect-ratio:9/16;
 }
 
 .flip-front video,
