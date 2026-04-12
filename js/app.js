@@ -186,46 +186,62 @@ function scrollToForm() {
 const card = document.getElementById("videoFlip");
 const leftBtn = document.getElementById("flipLeft");
 const rightBtn = document.getElementById("flipRight");
+const videos = document.querySelectorAll(".flip-face video");
+
+let current = 0;
+const angles = [0, -120, -240]; // rotation angles for each face
+
+// Play only first video initially
+videos[0].play();
+videos[1].pause();
+videos[2].pause();
+
+function updateCard() {
+  // Rotate card to show current face
+  card.style.transform = `rotateY(${angles[current]}deg)`;
+
+  // Play only the current video, pause others
+  videos.forEach((v, i) => {
+    if (i === current) {
+      v.play();
+    } else {
+      v.pause();
+    }
+  });
+}
 
 rightBtn.onclick = () => {
-  card.classList.toggle("flipped");
+  current = (current + 1) % 3;
+  updateCard();
 };
 
 leftBtn.onclick = () => {
-  card.classList.toggle("flipped");
+  current = (current - 1 + 3) % 3;
+  updateCard();
 };
 
-const videos = document.querySelectorAll(".flip-card video");
-
+// Click to fullscreen with sound
 videos.forEach((video) => {
-
   video.addEventListener("click", function (e) {
     e.stopPropagation();
-
-    // turn sound on
     video.muted = false;
-
-    // play video
     video.play();
 
-    // open fullscreen
     if (video.requestFullscreen) {
       video.requestFullscreen();
     } else if (video.webkitEnterFullscreen) {
-      video.webkitEnterFullscreen(); // iPhone Safari
+      video.webkitEnterFullscreen();
     } else if (video.webkitRequestFullscreen) {
-      video.webkitRequestFullscreen(); // Safari desktop
+      video.webkitRequestFullscreen();
     }
   });
 
-  // when fullscreen exits
   document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {
       video.muted = true;
       video.play();
     }
   });
-
 });
 // const video = document.getElementById("videoFlip");
 
