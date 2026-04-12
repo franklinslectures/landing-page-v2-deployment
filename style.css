@@ -53,8 +53,8 @@ header {
   border: none;
   height: 40px;
   position: fixed;
-  width: 96%;
-  border-radius: 10px;
+  width: 100%;
+  /* border-radius: 10px; */
   max-width: 429px;
   top: 0;
   z-index: 999;
@@ -315,15 +315,42 @@ select:valid {
   object-fit: cover;
   display: block;
 }
+.main-bg {
+  width: 94.9%;
+  max-width: 430px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  /* background: linear-gradient(
+    160deg,
+    #f6f7f9 0%,
+    #eef1f5 55%,
+    #e6ebf2 100%
+  ); */
+  position: relative;
+  /* overflow: hidden; */
+    background-image: url("data:image/svg+xml,[http://www.w3.org/2000/svg]");
+  background-size: cover;
+  background-position: center;
+}
+.hero-wave{
+  position: absolute;
+  bottom: 0;
+  left: 2.6%;
+  width: 94.9%;
+  z-index: 0;
+  border-radius: 10px;
+  opacity:1.8;
+}
 
-.hero-bg {
+/* .hero-bg {
   width: 94.9%;
   max-width: 430px;
   height: auto;
   object-fit: cover;
   display: block;
   border-radius: 10px;
-}
+} */
 
 .hero-content {
   position: absolute;
@@ -360,12 +387,13 @@ select:valid {
 
 .hero-fg {
   position: absolute;
-  margin-bottom: -98px;
+  /* margin-bottom: 10px; */
   right: 51.5%;
   height: 67%;
   width: auto;
   z-index: 0;
   overflow: visible;
+  top: 35%;
 }
 
 @media (max-width: 768px) {
@@ -391,90 +419,52 @@ select:valid {
 
 .offer-card,
 .offer-card2,
-.offer-card3
- {
+.offer-card3 {
   position: absolute;
   pointer-events: none;
   margin-top: 80px;
-  /* color: white; */
-  /* border-radius: 16px; */
   padding: 24px;
   width: clamp(140px, 50vw, 180px);
   height: 115px;
   max-width: 400px;
-  /* box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   z-index: 3;
   opacity: 0;
   transform: translateY(20px);
-  /* transform: translateY(0) scale(1.02); */
-  animation: switchCard 10s infinite;
-  /* animation: switchCard 10s infinite; */
+  animation: switchCard 15s infinite; /* 15s = 5s per card × 3 cards */
   will-change: transform, opacity;
-  backface-visibility: hidden;  
+  backface-visibility: hidden;
 }
+
+/* Images */
 .offer-card img,
 .offer-card2 img,
-.offer-card3 img,
-{
+.offer-card3 img {
   border-radius: 10px;
   width: 250px;
-  height: 115px;
   min-width: 180px;
+  height: 115px;
 }
-/* .offer-card2 img {
-  border-radius: 10px;
-  width: 250px;
-  min-width: 180px;
-  height: 115px;
-} */
 
-
+/* Delays — each card starts 5s after the previous */
 .offer-card  { animation-delay: 0s; }
 .offer-card2 { animation-delay: 5s; }
 .offer-card3 { animation-delay: 10s; }
 
-/* @keyframes switchCard {
-  0%   { opacity: 0; transform: translateY(20px); pointer-events: none; }
-  10%  { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  30%  { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  40%  { opacity: 0; transform: translateY(-20px); pointer-events: none; }
-  100% { opacity: 0; pointer-events: none; }
-} */
-
+/* 
+  Total cycle = 15s
+  Each card is visible for 5s out of 15s
+  0%-6%   = fade in  (0s - 0.9s)
+  6%-34%  = visible  (0.9s - 5.1s)
+  34%-40% = fade out (5.1s - 6s)
+  40%-100% = hidden  (6s - 15s)
+*/
 @keyframes switchCard {
   0%   { opacity: 0; transform: translateY(20px); pointer-events: none; }
-  8%   { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  45%  { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  53%  { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+  6%   { opacity: 1; transform: translateY(0);    pointer-events: auto; }
+  34%  { opacity: 1; transform: translateY(0);    pointer-events: auto; }
+  40%  { opacity: 0; transform: translateY(-20px); pointer-events: none; }
   100% { opacity: 0; transform: translateY(-20px); pointer-events: none; }
-  /* 100% { opacity: 0; pointer-events: none; } */
-}
-
-.batch1 {
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 400;
-  margin-left: -4px;
-  margin-top: -10px;
-  margin-bottom: -10px;
-}
-
-.discount {
-  font-size: clamp(24px, 7vw, 32px);
-  font-weight: 600;
-  margin-top: 0px;
-  margin-left: -5px;
-  margin-bottom: -8px;
-}
-
-.validity {
-  font-size: 6px;
-  margin-top: 0px;
-  opacity: 0.9;
-  margin-left: -4px;
-  margin-bottom: 5px;
 }
 
 .offer-button1,
@@ -502,7 +492,6 @@ select:valid {
 .join-btn:hover {
   background-color: #e5e7eb;
 }
-
 /* =============================================
    INFO CARD (yellow video card)
    ============================================= */
@@ -907,16 +896,15 @@ select:valid {
 /* =============================================
    VIDEO FLIP CARD
    ============================================= */
+   
 .flip-container {
   perspective: 1000px;
   width: clamp(220px, 70vw, 280px);
   height: 450px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  display: flex;
-  transform: translateZ(0);
-  object-fit: cover;
-  aspect-ratio: 9/16 !important;
+  aspect-ratio: 9/16;
 }
 
 .flip-card {
@@ -926,40 +914,30 @@ select:valid {
   transform-style: preserve-3d;
   transition: transform 0.8s ease;
   will-change: transform;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: rotateY(0.0001deg);
 }
 
-.flip-card.flipped {
-  transform: rotateY(180deg);
-}
-
-.flip-front,
-.flip-back {
+/* Each face rotated 120deg apart — like a prism */
+.flip-face {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
   background: #000;
   border-radius: 12px;
   overflow: hidden;
-  aspect-ratio:9/16;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  aspect-ratio: 9/16;
 }
 
-.flip-front video,
-.flip-back video {
+.face-1 { transform: rotateY(0deg); }
+.face-2 { transform: rotateY(120deg); }
+.face-3 { transform: rotateY(240deg); }
+
+.flip-face video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transform: scale(1.01);
-}
-
-.flip-back {
-  transform: rotateY(180deg);
 }
 
 .video-section {
@@ -975,7 +953,6 @@ select:valid {
   border: none;
   background-color: white;
 }
-
 /* =============================================
    TOPPER / REVIEW SECTION
    ============================================= */
